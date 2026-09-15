@@ -1,26 +1,67 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 1.5rem 2rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+
+.blog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 500px;
+  margin-top: 1.5rem;
+  margin-left: 1rem;
+}
+
+.form-field {
+  display: flex;
+  align-items: center;
+}
+
+.form-field label {
+  width: 70px;
+}
+
+.form-field input {
+  flex: 1;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #999;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.blog-form button {
+  align-self: flex-start;
+  margin-top: 0.3rem;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid #777;
+  border-radius: 5px;
+  background: #eee;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.blog-form button:hover {
+  background: #ddd;
 }

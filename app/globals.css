@@ -29,7 +29,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  width: 500px;
+  width: 400px;
   margin-top: 1.5rem;
   margin-left: 1rem;
 }

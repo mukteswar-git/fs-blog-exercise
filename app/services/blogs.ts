@@ -4,21 +4,21 @@ const blogs = [
     title: "Getting Started with Next.js",
     author: "John Smith",
     url: "https://example.com/getting-started-nextjs",
-    likes: 0,
+    likes: 5,
   },
   {
     id: 2,
     title: "Understanding React Server Components",
     author: "Sarah Johnson",
     url: "https://example.com/react-server-components",
-    likes: 0,
+    likes: 10,
   },
   {
     id: 3,
     title: "Building APIs with Next.js",
     author: "Michael Brown",
     url: "https://example.com/nextjs-apis",
-    likes: 0,
+    likes: 15,
   },
 ];
 
@@ -30,4 +30,16 @@ export const getBlogs = () => {
 
 export const addBlog = (title: string, author: string, url: string) => {
   blogs.push({id: nextId++, title, author, url, likes: 0})
+}
+
+export const getBlogById = (id: number) => {
+  return blogs.find((blog) => blog.id === id)
+}
+
+export const increaseLike = (id: number) => {
+  const blog = blogs.find((blog) => blog.id === id);
+
+  if (blog) {
+    blog.likes += 1
+  }
 }

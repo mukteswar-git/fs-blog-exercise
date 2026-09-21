@@ -21,7 +21,9 @@ const NewBlog = () => {
           <input id="url" type="url" name="url" required />
         </div>
 
-        <button type="submit">Create</button>
+        <button type="submit" className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
+          Create
+        </button>
       </form>
     </div>
   );

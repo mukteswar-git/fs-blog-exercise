@@ -50,18 +50,3 @@ a {
   border-radius: 4px;
   font-size: 1rem;
 }
-
-.blog-form button {
-  align-self: flex-start;
-  margin-top: 0.3rem;
-  padding: 0.5rem 1.2rem;
-  border: 1px solid #777;
-  border-radius: 5px;
-  background: #eee;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.blog-form button:hover {
-  background: #ddd;
-}

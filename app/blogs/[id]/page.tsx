@@ -16,7 +16,8 @@ const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
       <p>Link: <a href={blog.url}>{blog.url}</a></p>
       <form action={increaseBlogLike}>
         <input type="hidden" name="id" value={blog.id} />
-        <button type="submit" className="px-4 py-2 bg-gray-100 border border-gray-600 rounded-md">
+        <button type="submit" className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+>
           Like
         </button>
       </form>

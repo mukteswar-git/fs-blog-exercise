@@ -8,7 +8,7 @@ const Blogs = async ({
 }) => {
   const { filter = "" } = await searchParams;
 
-  let blogs = getBlogs()
+  const blogs = await getBlogs()
 
   const sortedBlogs = [...blogs]
     .filter((blog) =>

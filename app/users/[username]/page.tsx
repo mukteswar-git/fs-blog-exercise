@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { getUserByUsername } from "@/app/services/users"
+import { getUserByUsername } from "@/services/users"
 
 const UserPage = async ({ params }: { params: Promise<{ username: string }> }) => {
   const { username } = await params
@@ -12,7 +12,7 @@ const UserPage = async ({ params }: { params: Promise<{ username: string }> }) =
 
   return (
     <div>
-      <h2>{user.name}</h2>
+      <h2 className="mt-4">{user.name}</h2>
 
       <h3>Blogs</h3>
 

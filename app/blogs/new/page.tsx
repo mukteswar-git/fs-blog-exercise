@@ -1,9 +1,9 @@
-import { createBlog } from "@/app/actions/blogs";
+import { createBlog } from "@/actions/blogs";
 
 const NewBlog = () => {
   return (
     <div className="blog-page">
-      <h2>Create a new blog</h2>
+      <h2 className="mt-4">Create a new blog</h2>
 
       <form className="blog-form" action={createBlog}>
         <div className="form-field">

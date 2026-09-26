@@ -1,6 +1,18 @@
-import { registerUser } from "../actions/users"
+"use client"
+
+import { useActionState } from "react"
+import { registerUser } from "@/actions/users"
+
+const initialState = {
+  error: "",
+}
 
 export default function RegisterPage() {
+  const [state, formAction] = useActionState(
+    registerUser,
+    initialState
+  )
+
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-4">
       <div className="w-full max-w-md rounded-xl border bg-white p-8 shadow-sm">
@@ -13,7 +25,7 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        <form action={registerUser} className="space-y-5">
+        <form action={formAction} className="space-y-5">
           <div>
             <label
               htmlFor="username"
@@ -27,6 +39,7 @@ export default function RegisterPage() {
               type="text"
               name="username"
               required
+              minLength={4}
               className="w-full rounded-md border border-gray-300 px-3 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
             />
           </div>
@@ -61,9 +74,29 @@ export default function RegisterPage() {
               type="password"
               name="password"
               required
+              minLength={4}
               className="w-full rounded-md border border-gray-300 px-3 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
             />
           </div>
+
+          <div>
+            <label
+              htmlFor="passwordConfirm"
+              className="mb-2 block text-sm font-medium text-gray-700"
+            >
+              Confirm Password
+            </label>
+
+            <input
+              id="passwordConfirm"
+              type="password"
+              name="passwordConfirm"
+              required
+              minLength={4}
+              className="w-full rounded-md border border-gray-300 px-3 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+            />
+          </div>
+
 
           <button
             type="submit"
@@ -71,6 +104,12 @@ export default function RegisterPage() {
           >
             Register
           </button>
+
+          {state.error && (
+            <p style={{ color: "red" }}>
+              {state.error}
+            </p>
+          )}
         </form>
       </div>
     </div>

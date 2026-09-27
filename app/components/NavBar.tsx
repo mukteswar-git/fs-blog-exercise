@@ -38,6 +38,13 @@ export default function NavBar() {
             Create new
           </Link>
 
+          <Link
+            href="/me"
+            className="font-medium text-gray-700 transition-colors hover:text-blue-600"
+          >
+            Me
+          </Link>
+
           <span className="ml-auto text-sm text-gray-600">
             {session.user?.name}
           </span>

@@ -5,6 +5,9 @@ import bcrypt from "bcryptjs"
 import { eq } from "drizzle-orm"
 import { db } from "../../db"
 import { users } from "../../db/schema"
+import { auth } from "../auth"
+import { revalidatePath } from "next/cache"
+import crypto from "crypto"
 
 type RegisterState = {
   error: string
@@ -58,4 +61,21 @@ export const registerUser = async (
   })
 
   redirect("/login")
+}
+
+export const generateToken = async () => {
+  const session = await auth()
+
+  if (!session?.user?.email) {
+    throw new Error("Unauthorized")
+  }
+
+  const token = crypto.randomUUID()
+
+  await db
+    .update(users)
+    .set({ token })
+    .where(eq(users.username, session.user.email))
+
+  revalidatePath("/me")
 }

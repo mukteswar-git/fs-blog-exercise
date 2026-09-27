@@ -4,6 +4,9 @@ import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
 import { addBlog, increaseLike } from "../services/blogs"
 import { auth } from "@/auth"
+import { eq, and } from "drizzle-orm"
+import { db } from "../../db"
+import { users, readingList } from "../../db/schema"
 
 type CreateBlogState = {
   error: string
@@ -72,4 +75,41 @@ export const increaseBlogLike = async (formData: FormData) => {
 
   revalidatePath(`/blogs/${id}`)
   revalidatePath("/blogs")
+}
+
+export const addToReadingList = async (formData: FormData) => {
+  const session = await auth()
+
+  if (!session?.user?.email) {
+    redirect("/login")
+  }
+
+  const blogId = Number(formData.get("id"))
+
+  const user = await db.query.users.findFirst({
+    where: eq(users.username, session.user.email),
+  })
+
+  if (!user) {
+    redirect("/login")
+  }
+
+  const existing = await db.query.readingList.findFirst({
+    where: and(
+      eq(readingList.userId, user.id),
+      eq(readingList.blogId, blogId),
+    ),
+  })
+
+  if (existing) {
+    return
+  }
+
+  await db.insert(readingList).values({
+    userId: user.id,
+    blogId,
+  })
+
+  revalidatePath(`/blogs/${blogId}`)
+  revalidatePath("/me")
 }

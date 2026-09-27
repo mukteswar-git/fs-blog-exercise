@@ -1,7 +1,7 @@
 import { auth } from "../auth"
 import { redirect } from "next/navigation"
 import { db } from "../../db"
-import { users } from "../../db/schema"
+import { users, readingList } from "../../db/schema"
 import { eq } from "drizzle-orm"
 import { generateToken } from "../actions/users"
 
@@ -19,6 +19,13 @@ const Me = async () => {
   if (!user) {
     redirect("/login")
   }
+
+  const userReadingList = await db.query.readingList.findMany({
+    where: eq(readingList.userId, user.id),
+    with: {
+      blog: true,
+    },
+  })
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-8">
@@ -63,6 +70,38 @@ const Me = async () => {
             Generate New Token
           </button>
         </form>
+
+        <hr className="my-6 border-gray-200" />
+
+        <h3 className="mb-4 text-xl font-bold text-gray-800">
+          Reading List
+        </h3>
+
+        {userReadingList.length > 0 ? (
+          <ul className="space-y-3">
+            {userReadingList.map((item) => (
+              <li
+                key={item.id}
+                className="rounded-md border border-gray-200 p-4"
+              >
+                <a
+                  href={`/blogs/${item.blog.id}`}
+                  className="font-medium text-blue-600 hover:text-blue-800 hover:underline"
+                >
+                  {item.blog.title}
+                </a>
+
+                <p className="mt-1 text-sm text-gray-500">
+                  by {item.blog.author}
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-500">
+            Your reading list is empty.
+          </p>
+        )}
       </div>
     </div>
   )

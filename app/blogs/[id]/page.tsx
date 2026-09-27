@@ -47,14 +47,22 @@ const BlogPage = async ({
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-8">
-      <article className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-        <h2 className="mb-3 text-3xl font-bold text-gray-900">
+      <article 
+        data-testid="blog-detail"
+        className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+        <h2
+          data-testid="blog-title"
+          className="mb-3 text-3xl font-bold text-gray-900"
+        >
           {blog.title}
         </h2>
 
         <p className="mb-5 text-gray-600">
           by{" "}
-          <span className="font-medium text-gray-900">
+          <span
+            data-testid="blog-author"
+            className="font-medium text-gray-900"
+          >
             {blog.author}
           </span>
           {" "}— {blog.likes} likes
@@ -86,6 +94,7 @@ const BlogPage = async ({
 
               <button
                 type="submit"
+                data-testid="add-to-reading-list-button"
                 className="rounded-md bg-green-600 px-4 py-2 font-medium text-white transition hover:bg-green-700"
               >
                 Add to reading list

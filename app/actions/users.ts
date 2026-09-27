@@ -1,16 +1,18 @@
 "use server"
 
-import { redirect } from "next/navigation"
 import bcrypt from "bcryptjs"
 import { eq } from "drizzle-orm"
 import { db } from "../../db"
 import { users } from "../../db/schema"
 import { auth } from "../auth"
+import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
 import crypto from "crypto"
 
-type RegisterState = {
+export type RegisterState = {
   error: string
+  usernameError?: string
+  passwordConfirmError?: string
 }
 
 export const registerUser = async (
@@ -25,6 +27,7 @@ export const registerUser = async (
   if (!username || username.length < 4) {
     return {
       error: "Username must be at least 4 characters long",
+      usernameError: "Username must be at least 4 characters long"
     }
   }
 
@@ -37,6 +40,7 @@ export const registerUser = async (
   if (password !== passwordConfirm) {
     return {
       error: "Passwords do not match",
+      passwordConfirmError: "Passwords do not match",
     }
   }
 
@@ -72,10 +76,13 @@ export const generateToken = async () => {
 
   const token = crypto.randomUUID()
 
+  console.log("GENERATED TOKEN:", token)
+
   await db
     .update(users)
     .set({ token })
     .where(eq(users.username, session.user.email))
 
-  revalidatePath("/me")
+  revalidatePath("/me", "page")
+  redirect("/me")
 }

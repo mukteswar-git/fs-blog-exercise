@@ -105,10 +105,17 @@ export const addToReadingList = async (formData: FormData) => {
     return
   }
 
+  console.log("ADDING TO READING LIST:", {
+    userId: user.id,
+    blogId,
+  })
+
   await db.insert(readingList).values({
     userId: user.id,
     blogId,
   })
+
+  console.log("READING LIST INSERTED")
 
   revalidatePath(`/blogs/${blogId}`)
   revalidatePath("/me")

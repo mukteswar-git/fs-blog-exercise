@@ -1,16 +1,19 @@
 "use client"
 
 import { useActionState } from "react"
-import { registerUser } from "@/actions/users"
+import {
+  registerUser,
+  type RegisterState,
+} from "@/actions/users"
 
-const initialState = {
+const initialState: RegisterState = {
   error: "",
 }
 
 export default function RegisterPage() {
   const [state, formAction] = useActionState(
     registerUser,
-    initialState
+    initialState,
   )
 
   return (
@@ -20,12 +23,14 @@ export default function RegisterPage() {
           <h2 className="text-2xl font-semibold text-gray-900">
             Create an account
           </h2>
+
           <p className="mt-1 text-sm text-gray-500">
             Register to create and manage your blogs.
           </p>
         </div>
 
         <form action={formAction} className="space-y-5">
+          {/* Username */}
           <div>
             <label
               htmlFor="username"
@@ -39,11 +44,20 @@ export default function RegisterPage() {
               type="text"
               name="username"
               required
-              minLength={4}
               className="w-full rounded-md border border-gray-300 px-3 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
             />
+
+            {state.usernameError && (
+              <p
+                data-testid="username-error"
+                className="mt-1 text-sm text-red-600"
+              >
+                {state.usernameError}
+              </p>
+            )}
           </div>
 
+          {/* Name */}
           <div>
             <label
               htmlFor="name"
@@ -61,6 +75,7 @@ export default function RegisterPage() {
             />
           </div>
 
+          {/* Password */}
           <div>
             <label
               htmlFor="password"
@@ -79,6 +94,7 @@ export default function RegisterPage() {
             />
           </div>
 
+          {/* Confirm Password */}
           <div>
             <label
               htmlFor="passwordConfirm"
@@ -95,18 +111,29 @@ export default function RegisterPage() {
               minLength={4}
               className="w-full rounded-md border border-gray-300 px-3 py-2.5 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
             />
+
+            {state.passwordConfirmError && (
+              <p
+                data-testid="passwordConfirm-error"
+                className="mt-1 text-sm text-red-600"
+              >
+                {state.passwordConfirmError}
+              </p>
+            )}
           </div>
 
-
+          {/* Register button */}
           <button
             type="submit"
+            data-testid="register-button"
             className="w-full rounded-md bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             Register
           </button>
 
+          {/* General error */}
           {state.error && (
-            <p style={{ color: "red" }}>
+            <p className="text-sm text-red-600">
               {state.error}
             </p>
           )}

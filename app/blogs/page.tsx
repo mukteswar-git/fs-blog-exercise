@@ -29,6 +29,7 @@ const Blogs = async ({
         <input
           type="text"
           name="filter"
+          data-testid="filter-input"
           placeholder="Search blogs..."
           defaultValue={filter}
           className="flex-1 rounded-md border border-gray-300 px-3 py-2 outline-none transition focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
@@ -36,13 +37,14 @@ const Blogs = async ({
 
         <button
           type="submit"
+          data-testid="search-button"
           className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white transition hover:bg-blue-700"
         >
           Search
         </button>
       </form>
 
-      <ul className="space-y-3">
+      <ul data-testid="blogs-list" className="space-y-3">
         {sortedBlogs.map((blog) => (
           <li
             key={blog.id}

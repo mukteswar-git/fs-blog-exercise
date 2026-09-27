@@ -12,21 +12,21 @@ export default function NavBar() {
         href="/"
         className="font-medium text-gray-700 transition-colors hover:text-blue-600"
       >
-        Home
+        home
       </Link>
 
       <Link
         href="/blogs"
         className="font-medium text-gray-700 transition-colors hover:text-blue-600"
       >
-        Blogs
+        blogs
       </Link>
 
       <Link
         href="/users"
         className="font-medium text-gray-700 transition-colors hover:text-blue-600"
       >
-        Users
+        users
       </Link>
 
       {session ? (
@@ -35,14 +35,14 @@ export default function NavBar() {
             href="/blogs/new"
             className="font-medium text-gray-700 transition-colors hover:text-blue-600"
           >
-            Create new
+            create new
           </Link>
 
           <Link
             href="/me"
             className="font-medium text-gray-700 transition-colors hover:text-blue-600"
           >
-            Me
+            me
           </Link>
 
           <span className="ml-auto text-sm text-gray-600">
@@ -50,10 +50,10 @@ export default function NavBar() {
           </span>
 
           <button
-            onClick={() => signOut()}
+            onClick={() => signOut({ callbackUrl: "/blogs"})}
             className="rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100"
           >
-            Logout
+            logout
           </button>
         </>
       ) : (
@@ -62,14 +62,14 @@ export default function NavBar() {
             href="/login"
             className="ml-auto font-medium text-blue-600 transition-colors hover:text-blue-700"
           >
-            Login
+            login
           </Link>
 
           <Link
             href="/register"
             className="font-medium text-blue-600 transition-colors hover:text-blue-700"
           >
-            Register
+            register
           </Link>
         </>
       )}

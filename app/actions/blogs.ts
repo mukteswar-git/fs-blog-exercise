@@ -7,6 +7,7 @@ import { auth } from "@/auth"
 
 type CreateBlogState = {
   error: string
+  success?: boolean
   values?: {
     title: string
     author: string
@@ -19,6 +20,7 @@ export const createBlog = async (
   formData: FormData,
 ) => {
   const session = await auth()
+
   if (!session) {
     redirect("/login")
   }
@@ -30,33 +32,44 @@ export const createBlog = async (
   if (!title || title.length < 5) {
     return {
       error: "Title must be at least 5 characters long",
-      values: { title, author, url }
+      values: { title, author, url },
     }
   }
 
   if (!author || author.length < 5) {
     return {
       error: "Author must be at least 5 characters long",
-      values: { title, author, url }
+      values: { title, author, url },
     }
   }
-  
+
   if (!url || url.length < 5) {
     return {
       error: "URL must be at least 5 characters long",
-      values: { title, author, url }
+      values: { title, author, url },
     }
   }
-  
+
   await addBlog(title, author, url)
 
   revalidatePath("/blogs")
-  redirect("/blogs")
+
+  return {
+    error: "",
+    success: true,
+    values: {
+      title,
+      author,
+      url,
+    },
+  }
 }
 
 export const increaseBlogLike = async (formData: FormData) => {
   const id = Number(formData.get("id"))
+
   await increaseLike(id)
+
   revalidatePath(`/blogs/${id}`)
   revalidatePath("/blogs")
 }

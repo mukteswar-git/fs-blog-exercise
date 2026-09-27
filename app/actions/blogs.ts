@@ -113,3 +113,35 @@ export const addToReadingList = async (formData: FormData) => {
   revalidatePath(`/blogs/${blogId}`)
   revalidatePath("/me")
 }
+
+export const markAsRead = async (formData: FormData) => {
+  const session = await auth()
+
+  if (!session?.user?.email) {
+    redirect("/login")
+  }
+
+  const readingListId = Number(formData.get("id"))
+
+  const user = await db.query.users.findFirst({
+    where: eq(users.username, session.user.email),
+  })
+
+  if (!user) {
+    redirect("/login")
+  }
+
+  await db
+    .update(readingList)
+    .set({
+      read: true,
+    })
+    .where(
+      and(
+        eq(readingList.id, readingListId),
+        eq(readingList.userId, user.id),
+      ),
+    )
+
+  revalidatePath("/me")
+}

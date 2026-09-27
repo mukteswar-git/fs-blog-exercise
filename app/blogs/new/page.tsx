@@ -30,12 +30,23 @@ const NewBlog = () => {
   }, [state, showNotification, router])
 
   return (
-    <div className="blog-page">
-      <h2 className="mt-4">Create a new blog</h2>
+    <div className="mx-auto max-w-xl px-6 py-8">
+      <h2 className="mb-6 text-3xl font-bold text-gray-900">
+        Create a new blog
+      </h2>
 
-      <form className="blog-form" action={formAction}>
-        <div className="form-field">
-          <label htmlFor="title">Title</label>
+      <form
+        className="space-y-5 rounded-lg border border-gray-200 bg-white p-6 shadow-sm"
+        action={formAction}
+      >
+        <div>
+          <label
+            htmlFor="title"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Title
+          </label>
+
           <input
             id="title"
             type="text"
@@ -43,11 +54,18 @@ const NewBlog = () => {
             required
             minLength={5}
             defaultValue={state.values?.title}
+            className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 outline-none transition focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           />
         </div>
 
-        <div className="form-field">
-          <label htmlFor="author">Author</label>
+        <div>
+          <label
+            htmlFor="author"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Author
+          </label>
+
           <input
             id="author"
             type="text"
@@ -55,11 +73,18 @@ const NewBlog = () => {
             required
             minLength={5}
             defaultValue={state.values?.author}
+            className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 outline-none transition focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           />
         </div>
 
-        <div className="form-field">
-          <label htmlFor="url">URL</label>
+        <div>
+          <label
+            htmlFor="url"
+            className="block text-sm font-medium text-gray-700"
+          >
+            URL
+          </label>
+
           <input
             id="url"
             type="url"
@@ -67,18 +92,19 @@ const NewBlog = () => {
             required
             minLength={5}
             defaultValue={state.values?.url}
+            className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 outline-none transition focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           />
         </div>
 
         <button
           type="submit"
-          className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+          className="rounded-md bg-blue-600 px-5 py-2 font-medium text-white transition hover:bg-blue-700"
         >
           Create
         </button>
 
         {state.error && (
-          <p className="text-red-600">
+          <p className="text-sm font-medium text-red-600">
             {state.error}
           </p>
         )}

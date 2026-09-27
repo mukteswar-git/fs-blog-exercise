@@ -7,24 +7,24 @@ export default function NavBar() {
   const { data: session } = useSession()
 
   return (
-    <nav className="flex items-center gap-4 border-b px-6 py-4">
+    <nav className="flex items-center gap-5 border-b bg-white px-8 py-4 shadow-sm">
       <Link
         href="/"
-        className="font-medium text-gray-800 hover:text-blue-600"
+        className="font-medium text-gray-700 transition-colors hover:text-blue-600"
       >
         Home
       </Link>
 
       <Link
         href="/blogs"
-        className="font-medium text-gray-800 hover:text-blue-600"
+        className="font-medium text-gray-700 transition-colors hover:text-blue-600"
       >
         Blogs
       </Link>
 
       <Link
         href="/users"
-        className="font-medium text-gray-800 hover:text-blue-600"
+        className="font-medium text-gray-700 transition-colors hover:text-blue-600"
       >
         Users
       </Link>
@@ -33,7 +33,7 @@ export default function NavBar() {
         <>
           <Link
             href="/blogs/new"
-            className="font-medium text-gray-800 hover:text-blue-600"
+            className="font-medium text-gray-700 transition-colors hover:text-blue-600"
           >
             Create new
           </Link>
@@ -44,7 +44,7 @@ export default function NavBar() {
 
           <button
             onClick={() => signOut()}
-            className="rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            className="rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100"
           >
             Logout
           </button>
@@ -53,18 +53,18 @@ export default function NavBar() {
         <>
           <Link
             href="/login"
-            className="ml-auto font-medium text-blue-600 hover:text-blue-700"
+            className="ml-auto font-medium text-blue-600 transition-colors hover:text-blue-700"
           >
             Login
           </Link>
 
           <Link
             href="/register"
-            className="font-medium text-blue-600 hover:text-blue-700"
+            className="font-medium text-blue-600 transition-colors hover:text-blue-700"
           >
             Register
           </Link>
-        </>      
+        </>
       )}
     </nav>
   )
